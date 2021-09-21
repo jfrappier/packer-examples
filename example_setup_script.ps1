@@ -3,6 +3,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force
 #Setup logging
 $UserdataExecution = "C:\ProgramData\Amazon\EC2-Windows\Launch\Log\UserdataExecution.log"
 
+#Get instance ID via metadata
+$metadata = Invoke-WebRequest -Uri http://169.254.169.254/latest/meta-data/instance-id -UseBasicParsing
+
 #Install Windows roles and features
 "$(Get-Date -Format "yyyy:MM:dd HH:mm:ss") Installing Windows components" | Out-File $UserdataExecution -Append
 Install-WindowsFeature -Name Web-Server -IncludeManagementTools
